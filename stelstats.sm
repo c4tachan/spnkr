@@ -1,0 +1,39 @@
+stelstats
+
+#	device postencap moogplots.eps
+
+	data  test_sum_stellar.out
+	lines $start1 $end1
+	read {epstar 2 rwstar 5 abstar 6}
+	
+	data test_sum_solar.out
+	lines $start1 $end1
+	read {epsun 2 rwsun 5 absun 6}
+	
+	data test_sum_stellar.out
+	lines $start2 $end2
+	read {epstar2 2 rwstar2 5 abstar2 6}
+
+	data test_sum_solar.out
+	lines $start2 $end2
+	read {epsun2 2 rwsun2 5 absun2 6}
+
+	set fe1=abstar-absun
+	set fe2=abstar2-absun2
+	define fe1avg (sum(fe1)/($end1-($start1-1)))
+	define fe2avg (sum(fe2)/($end2-($start2-1)))
+
+	rxy fe1 epstar t
+	rxy fe1 rwstar t2
+	stats fe1 mean sig1 kurt
+	stats fe2 mean sig2 kurt
+
+	
+	echo Fe I and Excitation Correlation    = $t
+	echo Fe I and Reduced Width Correlation = $t2
+	
+	
+	
+	echo $t $t2 $fe1avg $fe2avg $sig1 $sig2
+	
+	

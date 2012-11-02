@@ -1,0 +1,71 @@
+moogplots
+
+
+	ctype white
+	device x11 -kbdfocus
+#	device postencap moogplots.eps
+
+	erase
+	
+	lweight 1
+	
+	data  test_sum_star.out
+	lines $start1 $end1
+	read {epstar 2 rwstar 5 abstar 6}
+	
+	data test_sum_sun.out
+	lines $start1 $end1
+	read {epsun 2 rwsun 5 absun 6}
+	
+	data test_sum_stellar.out
+	lines $start2 $end2
+	read {epstar2 2 rwstar2 5 abstar2 6}
+
+	data test_sum_solar.out
+	lines $start2 $end2
+	read {epsun2 2 rwsun2 5 absun2 6}
+
+	set fe1=abstar-absun
+	set fe2=abstar2-absun2
+	define fe1avg (sum(fe1)/($end1-($start1-1)))
+	define fe2avg (sum(fe2)/($end2-($start2-1)))
+
+	
+	window 1 3 1 3
+	limits epstar fe1
+	box
+	points epstar fe1
+	spear epstar fe1 t a
+	stats fe1 mean sig kurt
+	xlabel Stellar Excitation Potential
+	ylabel [Fe/H]
+	 
+	window 1 3 1 2
+	limits rwstar fe1
+	box
+	points rwstar fe1
+	spear rwstar fe1 t2 b
+	xlabel Stellar Reduced Width
+	ylabel [Fe/H]
+	
+	window 1 3 1 1
+	limits epstar2 fe2
+	box
+	points epstar2 fe2
+	spear epstar2 fe2 t3 c
+	xlabel Stellar Excitation Potential
+	ylabel [FeII/H]
+
+	
+
+	echo Fe I Standard Deviation 		= $sig
+	echo Fe I and Excitation Correlation    = $t
+	echo Fe I and Reduced Width Correlation = $t2
+	echo Average Fe I  abundance		= $fe1avg
+	echo Average Fe II abundance		= $fe2avg
+	
+	
+	echo $t $t2 $fe1avg $fe2avg
+	
+	delete history
+

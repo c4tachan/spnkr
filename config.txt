@@ -1,0 +1,19 @@
+sun Fe1 list			/home/patrick/Research/astro/SolarMcD/under_fe1.mine.lst
+sun Fe2 list			/home/patrick/Research/astro/SolarMcD/under_fe2.mine.lst
+sun path model			/home/patrick/Research/astro/SolarMcD/solar.atm
+
+mspawn path			mspawn
+mspawn limit high temp		7750
+mspawn limit low temp		3500
+mspawn limit high grav		5.0
+mspawn limit low grav		0.0
+mspawn limit high metalicity	0.5
+mspawn limit low metalicity	-3.5
+mspawn limit high mturb		3.0
+mspawn limit low mturb		0.0
+
+moog path			moog
+
+sm path prog			sm
+sm path macro			moogplots.sm
+
